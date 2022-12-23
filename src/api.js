@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
   res.send('');
 });
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '100mb' }));
 app.use('/.netlify/functions/api', router);
 
 module.exports.handler = serverless(app);
