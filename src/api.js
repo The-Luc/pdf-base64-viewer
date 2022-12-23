@@ -32,6 +32,7 @@ router.post('/', (req, res) => {
   pdfUrl = req.body.base64;
 
   console.log('Save pdf successfully');
+  console.log('pdf url length: ', pdfUrl.length);
 
   // auto clear pdfUrl after RESET_DURATION seconds
   clearTimeout(timer);
