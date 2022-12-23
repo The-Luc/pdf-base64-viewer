@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const app = express();
 
 let pdfUrl = '';
+let timer = null;
+const RESET_DURATION = 30 * 1000;
 
 const router = express.Router();
 
@@ -30,6 +32,14 @@ router.post('/', (req, res) => {
   pdfUrl = req.body.base64;
 
   console.log('Save pdf successfully');
+
+  // auto clear pdfUrl after RESET_DURATION seconds
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    pdfUrl = '';
+    console.log('Clear pdf link successfully');
+  }, RESET_DURATION);
+
   res.send('');
 });
 
