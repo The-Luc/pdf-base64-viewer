@@ -1,24 +1,21 @@
 const express = require('express');
 const serverless = require('serverless-http');
 const bodyParser = require('body-parser');
+const fs = require('fs');
+const opendir = require('fs/promises');
+const { htmlString } = require('./generate-html');
 
 const app = express();
 
 let pdfUrl = '';
 let timer = null;
-const RESET_DURATION = 30 * 1000;
+const RESET_DURATION = 5 * 60 * 1000;
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.send(`<embed
-      src="${pdfUrl}"
-      type="application/pdf"
-      frameBorder="0"
-      scrolling="auto"
-      height="100%"
-      width="100%"
-  ></embed>`);
+  res.contentType('html');
+  res.send(htmlString(pdfUrl));
 
   console.log('Get pdf successfully');
 });
