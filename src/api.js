@@ -1,8 +1,6 @@
 const express = require('express');
 const serverless = require('serverless-http');
 const bodyParser = require('body-parser');
-const fs = require('fs');
-const opendir = require('fs/promises');
 const { htmlString } = require('./generate-html');
 
 const app = express();
@@ -13,7 +11,8 @@ const RESET_DURATION = 5 * 60 * 1000;
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', (_, res) => {
+  console.log('=====================GETTING ==========');
   res.contentType('html');
   res.send(htmlString(pdfUrl));
 
@@ -21,6 +20,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
+  console.log('=====================POSTTING ==========');
   if (!req.body.base64) {
     res.send('No url');
     return;
